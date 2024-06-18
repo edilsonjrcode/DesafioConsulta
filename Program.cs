@@ -1,18 +1,24 @@
-﻿using DesafioCSharp2.Model;
+﻿using DesafioCSharp2.Controllers;
+using DesafioCSharp2.Dto;
+using DesafioCSharp2.Repositories;
+using DesafioCSharp2.Services;
 using DesafioCSharp2.Utils;
 
 class Program {
 
     public static void Main(String[] args) {
 
-        string CPF = "70698772423";
+        PacienteController controller = new PacienteController();
 
-        string data = "28022001";
+        PacienteDto paciente = new PacienteDto();
 
-        // Console.WriteLine(CPF.ValidaCpf());
-        // Console.WriteLine(CPF.ValidaNomeUsuario());
-        Console.WriteLine(data.ValidaData());
-        System.Console.WriteLine(data.ValidaSeCrianca());
+        paciente.Nome = "Joãozinho";
+        paciente.Cpf = "70698772423";
+        paciente.DataDeNascimento = "18062012";
 
+        // _services.IncluirPaciente(paciente);    
+        controller.AddPaciente(paciente); 
+        controller.AddPaciente(paciente); 
+           
     } 
 }

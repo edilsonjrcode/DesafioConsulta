@@ -10,7 +10,16 @@ using System.Threading.Tasks;
 namespace DesafioCSharp2.Repositories {
     class PacienteRepository {
 
-        private List<Paciente> pacientes;
+        private List<Paciente> pacientes = [];
+
+        public bool VerificaSeCpfEstaCadastrado(PacienteDto paciente){
+            foreach (Paciente pacienteCadastrado in pacientes){
+                if (pacienteCadastrado.Cpf == paciente.Cpf){
+                    throw new Exception("CPF já está cadastrado!");
+                }
+            }           
+            return false;
+        }
 
         public void IncluirPaciente(PacienteDto paciente) {
             Paciente novoPaciente = new Paciente(paciente.Nome, paciente.Cpf, paciente.DataDeNascimento.ConverteData());

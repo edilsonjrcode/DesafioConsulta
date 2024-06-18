@@ -12,3 +12,4 @@ C:\Users\edils\source\repos\DesafioCSharp2\DesafioCSharp2\obj\Debug\net8.0\refin
 C:\Users\edils\source\repos\DesafioCSharp2\DesafioCSharp2\obj\Debug\net8.0\DesafioCSharp2.pdb
 C:\Users\edils\source\repos\DesafioCSharp2\DesafioCSharp2\obj\Debug\net8.0\DesafioCSharp2.genruntimeconfig.cache
 C:\Users\edils\source\repos\DesafioCSharp2\DesafioCSharp2\obj\Debug\net8.0\ref\DesafioCSharp2.dll
+c:\Users\edils\source\repos\DesafioCSharp2\DesafioCSharp2\obj\Debug\net8.0\DesafioCSharp2.sourcelink.json

@@ -7,16 +7,17 @@ using System.Threading.Tasks;
 namespace DesafioCSharp2.Model {
     class Paciente {
 
-        private string nome;
+        public string Nome { get; private set; }
 
-        private string cpf;
+        public string Cpf { get; private set; }
 
-        private DateTime dataDeNascimento;
+        public DateTime DataDeNascimento { get; private set; }
 
+        
         public Paciente(string Nome, string Cpf, DateTime DataDeNascimento){
-            this.nome = Nome;
-            this.cpf = Cpf;
-            this.dataDeNascimento = DataDeNascimento;
+            this.Nome = Nome;
+            this.Cpf = Cpf;
+            this.DataDeNascimento = DataDeNascimento;
         }
 
     }

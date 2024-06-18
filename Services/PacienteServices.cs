@@ -10,12 +10,20 @@ using System.Threading.Tasks;
 namespace DesafioCSharp2.Services {
     class PacienteServices {
 
-        private PacienteRepository _repository;
+        PacienteRepository _repository = new PacienteRepository();
 
         public bool IncluirPaciente(PacienteDto paciente){
-            if (paciente.Cpf.ValidaCpf() && paciente.Nome.ValidaNome() && paciente.DataDeNascimento.ValidaData() && paciente.DataDeNascimento.ValidaSeCrianca()){
-                _repository.IncluirPaciente(paciente);
-                return true;             
+            try{
+                paciente.Cpf.ValidaCpf();
+                paciente.Nome.ValidaNome();
+                paciente.DataDeNascimento.ValidaData();
+                paciente.DataDeNascimento.ValidaSeCrianca();
+                if(!_repository.VerificaSeCpfEstaCadastrado(paciente)){
+                    _repository.IncluirPaciente(paciente);
+                    return true;  
+                }
+            } catch (Exception e){
+                throw;
             }
             return false;
         }
