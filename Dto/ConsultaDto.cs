@@ -10,5 +10,12 @@ namespace DesafioCSharp2.Dto {
         public string DataConsulta { get; set; }
         public string HoraInicial { get; set; }
         public string HoraFinal { get; set; }
+
+        public ConsultaDto(string Cpf, string DataConsulta, string HoraInicial, string HoraFinal){
+            this.Cpf = Cpf;
+            this.DataConsulta = DataConsulta;
+            this.HoraFinal = HoraInicial;
+            this.HoraFinal = HoraFinal;
+        }
     }
 }

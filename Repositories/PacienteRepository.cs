@@ -12,9 +12,9 @@ namespace DesafioCSharp2.Repositories {
 
         private List<Paciente> pacientes = [];
 
-        public bool VerificaSeCpfEstaCadastrado(PacienteDto paciente){
+        public bool VerificaSeCpfEstaCadastrado(string cpf){
             foreach (Paciente pacienteCadastrado in pacientes){
-                if (pacienteCadastrado.Cpf == paciente.Cpf){
+                if (pacienteCadastrado.Cpf == cpf){
                     throw new Exception("CPF já está cadastrado!");
                 }
             }           
@@ -26,12 +26,29 @@ namespace DesafioCSharp2.Repositories {
             pacientes.Add(novoPaciente);
         }
 
-        public void ExcluirPaciente(Paciente paciente) {
-            pacientes.Remove(paciente);
+        public void ExcluirPaciente(PacienteDto paciente) {
+            Paciente novoPaciente = new Paciente(paciente.Nome, paciente.Cpf, paciente.DataDeNascimento.ConverteData());
+            pacientes.Remove(novoPaciente);
         }
 
-        public List<Paciente> ListarPacientes() {
-            return pacientes;
+        public List<PacienteDto> TransformaTipoListaDto(){
+            
+            List<PacienteDto> listaPacientes = new List<PacienteDto>(); 
+
+            foreach (Paciente paciente in pacientes){
+                PacienteDto pacienteDto = new PacienteDto(paciente.Nome, paciente.Cpf, paciente.DataDeNascimento.ToString("ddMMyyyy"));
+                listaPacientes.Add(pacienteDto);
+            }
+
+            return listaPacientes;
+        }
+
+        public List<PacienteDto> ListarPacientesPorNome() {
+            return TransformaTipoListaDto().OrderBy(o => o.Nome).ToList();
+        }
+
+        public List<PacienteDto> ListarPacientesPorCpf() {
+            return TransformaTipoListaDto().OrderBy(o => o.Cpf).ToList();
         }
     }
 }

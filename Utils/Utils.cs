@@ -54,5 +54,6 @@ namespace DesafioCSharp2.Utils {
             }
             throw new Exception("paciente deve ter pelo menos 13 anos.");
         }
+
     }
 }

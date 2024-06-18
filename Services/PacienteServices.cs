@@ -1,4 +1,5 @@
 ﻿using DesafioCSharp2.Dto;
+using DesafioCSharp2.Model;
 using DesafioCSharp2.Repositories;
 using DesafioCSharp2.Utils;
 using System;
@@ -18,7 +19,7 @@ namespace DesafioCSharp2.Services {
                 paciente.Nome.ValidaNome();
                 paciente.DataDeNascimento.ValidaData();
                 paciente.DataDeNascimento.ValidaSeCrianca();
-                if(!_repository.VerificaSeCpfEstaCadastrado(paciente)){
+                if(!_repository.VerificaSeCpfEstaCadastrado(paciente.Cpf)){
                     _repository.IncluirPaciente(paciente);
                     return true;  
                 }
@@ -26,6 +27,22 @@ namespace DesafioCSharp2.Services {
                 throw;
             }
             return false;
+        }
+
+        public List<PacienteDto> ListarPacientesPorNome(){
+            if(_repository.ListarPacientesPorNome().Count() <= 0){
+                return [];
+            } 
+            return _repository.ListarPacientesPorNome();
+
+        }
+
+        public List<PacienteDto> ListarPacientesPorCpf(){
+            if(_repository.ListarPacientesPorCpf().Count() <= 0){
+                return [];
+            } 
+            return _repository.ListarPacientesPorCpf();
+
         }
 
     }

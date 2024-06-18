@@ -10,15 +10,16 @@ class Program {
 
         PacienteController controller = new PacienteController();
 
-        PacienteDto paciente = new PacienteDto();
+        PacienteDto paciente = new PacienteDto("Joãozinho", "02136548977", "18061981");
+        PacienteDto paciente2 = new PacienteDto("Adamastor", "70698772423", "15042001");
+        PacienteDto paciente3 = new PacienteDto("Pedrita", "32156987589", "16022009");
 
-        paciente.Nome = "Joãozinho";
-        paciente.Cpf = "70698772423";
-        paciente.DataDeNascimento = "18062012";
+        controller.AddPaciente(paciente); 
+        controller.AddPaciente(paciente2); 
+        controller.AddPaciente(paciente3); 
 
-        // _services.IncluirPaciente(paciente);    
-        controller.AddPaciente(paciente); 
-        controller.AddPaciente(paciente); 
+        controller.ListarPorNome();
+        controller.ListarPorCpf();
            
     } 
 }

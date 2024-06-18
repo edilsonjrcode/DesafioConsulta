@@ -23,5 +23,13 @@ namespace DesafioCSharp2.Controllers {
             return true;
         }
 
+        public List<PacienteDto> ListarPorNome(){
+            return _services.ListarPacientesPorNome();
+        }
+
+        public List<PacienteDto> ListarPorCpf(){
+            return _services.ListarPacientesPorCpf();
+        }
+
     }
 }

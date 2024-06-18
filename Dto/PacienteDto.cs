@@ -13,5 +13,11 @@ namespace DesafioCSharp2.Dto {
 
         public string DataDeNascimento { get; set; }
 
+        public PacienteDto(string Nome, string Cpf, string DataDeNascimento){
+            this.Nome = Nome;
+            this.Cpf = Cpf;
+            this.DataDeNascimento = DataDeNascimento;
+        }
+
     }
 }

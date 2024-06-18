@@ -6,9 +6,16 @@ using System.Threading.Tasks;
 
 namespace DesafioCSharp2.Model {
     class Consulta {
-        public String Cpf { get; set; }
-        public DateTime DataConsulta { get; set; }
-        public DateTime HoraInicial { get; set; }
-        public DateTime HoraFinal { get; set; }
+        public string Cpf { get; private set; }
+        public DateTime DataConsulta { get; private set; }
+        public DateTime HoraInicial { get; private set; }
+        public DateTime HoraFinal { get; private set; }
+
+        public Consulta(string Cpf, DateTime DataConsulta, DateTime HoraInicial, DateTime HoraFinal){
+            this.Cpf = Cpf;
+            this.DataConsulta = DataConsulta;
+            this.HoraFinal = HoraInicial;
+            this.HoraFinal = HoraFinal;
+        }
     }
 }
