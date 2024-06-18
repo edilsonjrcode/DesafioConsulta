@@ -1,0 +1,14 @@
+C:\Users\edils\source\repos\DesafioCSharp2\DesafioCSharp2\obj\Debug\net8.0\DesafioCSharp2.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\edils\source\repos\DesafioCSharp2\DesafioCSharp2\obj\Debug\net8.0\DesafioCSharp2.AssemblyInfoInputs.cache
+C:\Users\edils\source\repos\DesafioCSharp2\DesafioCSharp2\obj\Debug\net8.0\DesafioCSharp2.AssemblyInfo.cs
+C:\Users\edils\source\repos\DesafioCSharp2\DesafioCSharp2\obj\Debug\net8.0\DesafioCSharp2.csproj.CoreCompileInputs.cache
+C:\Users\edils\source\repos\DesafioCSharp2\DesafioCSharp2\bin\Debug\net8.0\DesafioCSharp2.exe
+C:\Users\edils\source\repos\DesafioCSharp2\DesafioCSharp2\bin\Debug\net8.0\DesafioCSharp2.deps.json
+C:\Users\edils\source\repos\DesafioCSharp2\DesafioCSharp2\bin\Debug\net8.0\DesafioCSharp2.runtimeconfig.json
+C:\Users\edils\source\repos\DesafioCSharp2\DesafioCSharp2\bin\Debug\net8.0\DesafioCSharp2.dll
+C:\Users\edils\source\repos\DesafioCSharp2\DesafioCSharp2\bin\Debug\net8.0\DesafioCSharp2.pdb
+C:\Users\edils\source\repos\DesafioCSharp2\DesafioCSharp2\obj\Debug\net8.0\DesafioCSharp2.dll
+C:\Users\edils\source\repos\DesafioCSharp2\DesafioCSharp2\obj\Debug\net8.0\refint\DesafioCSharp2.dll
+C:\Users\edils\source\repos\DesafioCSharp2\DesafioCSharp2\obj\Debug\net8.0\DesafioCSharp2.pdb
+C:\Users\edils\source\repos\DesafioCSharp2\DesafioCSharp2\obj\Debug\net8.0\DesafioCSharp2.genruntimeconfig.cache
+C:\Users\edils\source\repos\DesafioCSharp2\DesafioCSharp2\obj\Debug\net8.0\ref\DesafioCSharp2.dll
