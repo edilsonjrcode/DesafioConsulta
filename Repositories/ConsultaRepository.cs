@@ -58,11 +58,6 @@ namespace DesafioCSharp2.Repositories
             throw new Exception("Os dados informados não são semelhantes ao agendamento existente.");
         }
 
-        public List<Consulta> ListarConsulta()
-        {
-            return Consultas;
-        }
-
         public List<ConsultaDto> TransformaTipoListaDto()
         {
 
@@ -77,14 +72,15 @@ namespace DesafioCSharp2.Repositories
             return listaConsultas;
         }
 
-        public List<ConsultaDto> ListarPacientesPorNome()
+        public List<ConsultaDto> ListarConsultas()
         {
-            return TransformaTipoListaDto().OrderBy(o => o.DataConsulta).ToList();
+            return TransformaTipoListaDto().OrderBy(o => o.DataConsulta).ThenBy(o => o.HoraInicial).ToList();
         }
 
-        public List<ConsultaDto> ListarPacientesPorCpf()
+        public List<ConsultaDto> ListarConsultasPorPeriodo(string dataInicial, string dataFinal)
         {
-            return TransformaTipoListaDto().OrderBy(o => o.Cpf).ToList();
+            return TransformaTipoListaDto().Where(o => o.DataConsulta.ConverteData() >= dataInicial.ConverteData() && o.DataConsulta.ConverteData() <= dataFinal.ConverteData())
+            .OrderBy(o => o.DataConsulta).ThenBy(o => o.HoraInicial).ToList();
         }
 
     }

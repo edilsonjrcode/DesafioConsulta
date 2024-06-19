@@ -60,10 +60,13 @@ namespace DesafioCSharp2.Services
             {
                 if (CpfCadastrado)
                 {
-                    if(_repositoryConsulta.VerificaSePossuiAgendamento(consulta.Cpf)){
+                    if (_repositoryConsulta.VerificaSePossuiAgendamento(consulta.Cpf))
+                    {
                         _repositoryConsulta.CancelarConsulta(consulta);
                         return true;
-                    }else {
+                    }
+                    else
+                    {
                         throw new Exception("O paciente não possui agendamento");
                     }
                 }
@@ -78,13 +81,31 @@ namespace DesafioCSharp2.Services
             }
         }
 
-        public bool PossuiConsulta(string cpf){
+        public bool PossuiAgendamento(string cpf)
+        {
             return _repositoryConsulta.VerificaSePossuiAgendamento(cpf);
         }
 
         public List<ConsultaDto> ListarConsultas()
         {
-            return _repositoryConsulta.TransformaTipoListaDto();
+            return _repositoryConsulta.ListarConsultas();
+        }
+
+        public List<ConsultaDto> ListarConsultasPorPeriodo(string dataInicial, string dataFinal)
+        {
+            try
+            {
+                if (dataInicial.ValidaData() && dataFinal.ValidaData())
+                {
+                    return _repositoryConsulta.ListarConsultasPorPeriodo(dataInicial, dataFinal);
+                }
+            }
+            catch
+            {
+                throw;
+            }
+            return [];
+
         }
 
     }

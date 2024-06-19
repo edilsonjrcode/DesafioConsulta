@@ -1,11 +1,6 @@
 ﻿using DesafioCSharp2.Dto;
 using DesafioCSharp2.Model;
 using DesafioCSharp2.Utils;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DesafioCSharp2.Repositories
 {
@@ -32,10 +27,17 @@ namespace DesafioCSharp2.Repositories
             pacientes.Add(novoPaciente);
         }
 
-        public void ExcluirPaciente(PacienteDto paciente)
+        public bool ExcluirPaciente(string cpf)
         {
-            Paciente novoPaciente = new Paciente(paciente.Nome, paciente.Cpf, paciente.DataDeNascimento.ConverteData());
-            pacientes.Remove(novoPaciente);
+            foreach (Paciente pacienteCadastrado in pacientes)
+            {
+                if (pacienteCadastrado.Cpf == cpf)
+                {
+                    pacientes.Remove(pacienteCadastrado);
+                    return true;
+                }
+            }
+            throw new Exception("CPF não encontrado.");
         }
 
         public List<PacienteDto> TransformaTipoListaDto()

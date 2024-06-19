@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using DesafioCSharp2.Dto;
-using DesafioCSharp2.Model;
+﻿using System.Globalization;
 
 namespace DesafioCSharp2.Utils
 {
@@ -118,8 +111,9 @@ namespace DesafioCSharp2.Utils
             }
         }
 
-        public static String ConverteTimeToString(this TimeSpan time){
-            return time.ToString().Substring(0,2)+time.ToString().Substring(3,2);
+        public static String ConverteTimeToString(this TimeSpan time)
+        {
+            return time.ToString().Substring(0, 2) + time.ToString().Substring(3, 2);
         }
     }
 }

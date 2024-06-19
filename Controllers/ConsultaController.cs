@@ -1,40 +1,52 @@
 using DesafioCSharp2.Dto;
-using DesafioCSharp2.Repositories;
 using DesafioCSharp2.Services;
-using DesafioCSharp2.Utils;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace DesafioCSharp2.Controllers {
-    class ConsultaController {
+namespace DesafioCSharp2.Controllers
+{
+    class ConsultaController
+    {
 
         ConsultaServices _services = new ConsultaServices();
 
-        public bool AddConsulta(bool cpfCadastrado, ConsultaDto paciente){
-            try {
+        public bool AddConsulta(bool cpfCadastrado, ConsultaDto paciente)
+        {
+            try
+            {
                 _services.AgendarConsulta(cpfCadastrado, paciente);
             }
-            catch (Exception erro){
+            catch
+            {
                 throw;
             }
             return true;
         }
 
-        public bool DeleteConsulta(bool cpfCadastrado, ConsultaDto paciente){
-            try {
+        public bool DeleteConsulta(bool cpfCadastrado, ConsultaDto paciente)
+        {
+            try
+            {
                 _services.RemoverConsulta(cpfCadastrado, paciente);
             }
-            catch (Exception erro){
+            catch
+            {
                 throw;
             }
             return true;
         }
 
-        public List<ConsultaDto> ListarConsultas(){
+        public bool PossuiAgendamento(string cpf)
+        {
+            return _services.PossuiAgendamento(cpf);
+        }
+
+        public List<ConsultaDto> ListarConsultas()
+        {
             return _services.ListarConsultas();
+        }
+
+        public List<ConsultaDto> ListarConsultasPorPeriodo(string dataInicial, string dataFinal)
+        {
+            return _services.ListarConsultasPorPeriodo(dataInicial, dataFinal);
         }
 
     }

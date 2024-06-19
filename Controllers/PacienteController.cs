@@ -1,37 +1,51 @@
 using DesafioCSharp2.Dto;
-using DesafioCSharp2.Repositories;
 using DesafioCSharp2.Services;
-using DesafioCSharp2.Utils;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace DesafioCSharp2.Controllers {
-    class PacienteController {
+namespace DesafioCSharp2.Controllers
+{
+    class PacienteController
+    {
 
-        PacienteServices _services = new PacienteServices();
+        readonly PacienteServices _services = new PacienteServices();
 
-        public bool AddPaciente(PacienteDto paciente){
-            try {
+        public bool AddPaciente(PacienteDto paciente)
+        {
+            try
+            {
                 _services.IncluirPaciente(paciente);
             }
-            catch (Exception erro){
+            catch
+            {
                 throw;
             }
             return true;
         }
 
-        public bool CpfEstaCadastrado(string cpf){
+        public bool DeletePaciente(bool possuiConsulta, string cpf)
+        {
+            try
+            {
+                _services.ExcluirPaciente(possuiConsulta, cpf);
+            }
+            catch
+            {
+                throw;
+            }
+            return true;
+        }
+
+        public bool CpfEstaCadastrado(string cpf)
+        {
             return _services.CpfEstaCadastrado(cpf);
         }
 
-        public List<PacienteDto> ListarPorNome(){
+        public List<PacienteDto> ListarPorNome()
+        {
             return _services.ListarPacientesPorNome();
         }
 
-        public List<PacienteDto> ListarPorCpf(){
+        public List<PacienteDto> ListarPorCpf()
+        {
             return _services.ListarPacientesPorCpf();
         }
 
