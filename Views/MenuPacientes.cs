@@ -29,7 +29,11 @@ public class MenuPacientes(PacienteController pacienteController, ConsultaContro
                     cpf = Console.ReadLine();
                     try
                     {
-                        cpf.ValidaCpf();
+                        if(!pacienteController.CpfEstaCadastrado(cpf)){
+                            cpf.ValidaCpf();
+                        } else {
+                            throw new Exception("CPF já está cadastrado!");
+                        }
                     }
                     catch (Exception e)
                     {
@@ -87,7 +91,8 @@ public class MenuPacientes(PacienteController pacienteController, ConsultaContro
         }
     }
 
-    public void VDeletarPaciente(){
+    public void VDeletarPaciente()
+    {
 
         Console.Write("CPF: ");
         string cpf = Console.ReadLine();
@@ -95,6 +100,8 @@ public class MenuPacientes(PacienteController pacienteController, ConsultaContro
         {
             cpf.ValidaCpf();
             pacienteController.DeletePaciente(consultaController.PossuiAgendamento(cpf), cpf);
+            System.Console.WriteLine("Paciente deletado com sucesso!\n");
+
         }
         catch (Exception e)
         {
@@ -108,13 +115,16 @@ public class MenuPacientes(PacienteController pacienteController, ConsultaContro
 
         System.Console.WriteLine("------------------------------------------------------------");
         System.Console.WriteLine("CPF          Nome              Dt.Nasc.             Idade");
+        System.Console.WriteLine("------------------------------------------------------------");
         foreach (PacienteDto paciente in pacientes)
         {
-            System.Console.WriteLine("{0}      {1}           {2}             {3}", paciente.Cpf, paciente.Nome, paciente.DataDeNascimento, paciente.DataDeNascimento.ConverteIdade());
+            System.Console.WriteLine("{0}  {1}           {2}             {3}",
+            paciente.Cpf, paciente.Nome, paciente.DataDeNascimento.ConverteData().ToString("dd/MM/yyyy"), paciente.DataDeNascimento.ConverteIdade());
             List<ConsultaDto> consultas = consultaController.ListarConsultaPorCpf(paciente.Cpf);
-            if(consultas.Count() > 0){
-                System.Console.WriteLine("Agendado para: {0}", consultas[0].DataConsulta);
-                System.Console.WriteLine("{0} às {1}", consultas[0].HoraInicial, consultas[0].HoraFinal);
+            if (consultas.Count > 0)
+            {
+                System.Console.WriteLine("          Agendado para: {0}", consultas[0].DataConsulta.ConverteData().ToString("dd/MM/yyyy"));
+                System.Console.WriteLine("          {0} às {1}", consultas[0].HoraInicial.ConverteHora(), consultas[0].HoraFinal.ConverteHora());
             }
         }
         System.Console.WriteLine("------------------------------------------------------------");
@@ -125,10 +135,19 @@ public class MenuPacientes(PacienteController pacienteController, ConsultaContro
         List<PacienteDto> pacientes = pacienteController.ListarPorNome();
 
         System.Console.WriteLine("------------------------------------------------------------");
-        System.Console.WriteLine("CPF      Nome      Dt.Nasc.     Idade");
+        System.Console.WriteLine("CPF          Nome              Dt.Nasc.             Idade");
+        System.Console.WriteLine("------------------------------------------------------------");
+
         foreach (PacienteDto paciente in pacientes)
         {
-            System.Console.WriteLine("{0} {1} {2} {3}", paciente.Cpf, paciente.Nome, paciente.DataDeNascimento, paciente.DataDeNascimento.ConverteIdade());
+            System.Console.WriteLine("{0}  {1}           {2}             {3}",
+            paciente.Cpf, paciente.Nome, paciente.DataDeNascimento.ConverteData().ToString("dd/MM/yyyy"), paciente.DataDeNascimento.ConverteIdade());
+            List<ConsultaDto> consultas = consultaController.ListarConsultaPorCpf(paciente.Cpf);
+            if (consultas.Count > 0)
+            {
+                System.Console.WriteLine("      Agendado para: {0}", consultas[0].DataConsulta.ConverteData().ToString("dd/MM/yyyy"));
+                System.Console.WriteLine("      {0} às {1}", consultas[0].HoraInicial.ConverteHora(), consultas[0].HoraFinal.ConverteHora());
+            }
         }
         System.Console.WriteLine("------------------------------------------------------------");
     }

@@ -28,6 +28,8 @@ namespace DesafioCSharp2.Services
                             {
                                 _repositoryConsulta.AgendarConsulta(consulta);
                                 return true;
+                            } else {
+                                throw new Exception("O agendamento precisa ser feito em uma data atual ou futura!");
                             }
                         }
                         else

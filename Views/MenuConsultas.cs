@@ -88,7 +88,6 @@ public class MenuConsultas(PacienteController pacienteController, ConsultaContro
                         PrintError(e.Message);
                         continue;
                     }
-                    count++;
                 }
                 ConsultaDto consulta = new ConsultaDto(cpf, data, horaInicial, horaFinal);
                 consultaController.AddConsulta(pacienteController.CpfEstaCadastrado(consulta.Cpf), consulta);
@@ -190,14 +189,16 @@ public class MenuConsultas(PacienteController pacienteController, ConsultaContro
             case "T":
                 List<ConsultaDto> consultas = consultaController.ListarConsultas();
                 System.Console.WriteLine("-------------------------------------------------------------");
-                System.Console.WriteLine("Data H.Ini H.Fim Tempo Nome Dt.Nasc.");
+                System.Console.WriteLine("Data        H.Ini     H.Fim     Tempo      Nome       Dt.Nasc.");
                 System.Console.WriteLine("-------------------------------------------------------------");
                 foreach (ConsultaDto consulta in consultas)
                 {
+                    List<PacienteDto> paciente = pacienteController.ListarPacientePorCpf(consulta.Cpf);
                     if (consultas.Count > 0)
                     {
-                        System.Console.WriteLine("{0}      {1}           {2}             {3}", consulta.DataConsulta, consulta.HoraInicial.ConverteHora(),
-                        consulta.HoraFinal.ConverteHora(), consulta.HoraFinal.ConverteHora() - consulta.HoraInicial.ConverteHora());
+                        System.Console.WriteLine("{0} {1} {2} {3} {4} {5}", consulta.DataConsulta.ConverteData().ToString("dd/MM/yyyy"), 
+                        consulta.HoraInicial.ConverteHora(),consulta.HoraFinal.ConverteHora(), consulta.HoraFinal.ConverteHora() - consulta.HoraInicial.ConverteHora(), 
+                        paciente[0].Nome, paciente[0].DataDeNascimento.ConverteData().ToString("dd/MM/yyyy"));
                     }
                 }
                 System.Console.WriteLine("-------------------------------------------------------------");
@@ -215,18 +216,18 @@ public class MenuConsultas(PacienteController pacienteController, ConsultaContro
 
 
                 System.Console.WriteLine("-------------------------------------------------------------");
-                System.Console.WriteLine("Data H.Ini H.Fim Tempo Nome Dt.Nasc.");
+                System.Console.WriteLine("Data        H.Ini     H.Fim     Tempo      Nome       Dt.Nasc.");
                 System.Console.WriteLine("-------------------------------------------------------------");
-                foreach (ConsultaDto consulta in consultasPorPeriodo)
+                   foreach (ConsultaDto consulta in consultasPorPeriodo)
                 {
-
+                    List<PacienteDto> paciente = pacienteController.ListarPacientePorCpf(consulta.Cpf);
                     if (consultasPorPeriodo.Count > 0)
                     {
-                        System.Console.WriteLine("{0}      {1}           {2}             {3}", consulta.DataConsulta, consulta.HoraInicial.ConverteHora(),
-                        consulta.HoraFinal.ConverteHora(), consulta.HoraFinal.ConverteHora() - consulta.HoraInicial.ConverteHora());
+                        System.Console.WriteLine("{0} {1} {2} {3} {4} {5}", consulta.DataConsulta.ConverteData().ToString("dd/MM/yyyy"), 
+                        consulta.HoraInicial.ConverteHora(),consulta.HoraFinal.ConverteHora(), consulta.HoraFinal.ConverteHora() - consulta.HoraInicial.ConverteHora(), 
+                        paciente[0].Nome, paciente[0].DataDeNascimento.ConverteData().ToString("dd/MM/yyyy"));
                     }
                 }
-                System.Console.WriteLine("01/01/2022 07:30 08:00 00:30 xxxxxxxxxxxxxxxxxxxxx 99/99/9999");
                 System.Console.WriteLine("-------------------------------------------------------------");
                 break;
             default:

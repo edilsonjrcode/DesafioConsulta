@@ -63,5 +63,10 @@ namespace DesafioCSharp2.Repositories
         {
             return TransformaTipoListaDto().OrderBy(o => o.Cpf).ToList();
         }
+
+        public List<PacienteDto> ListarPacientePorCpf(string cpf)
+        {
+            return TransformaTipoListaDto().Where(o => o.Cpf == cpf).ToList();
+        }
     }
 }

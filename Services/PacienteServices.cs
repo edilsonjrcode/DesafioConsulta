@@ -73,8 +73,11 @@ namespace DesafioCSharp2.Services
                 return [];
             }
             return _repository.ListarPacientesPorCpf();
-
         }
 
+        public List<PacienteDto> PacientePorCpf(string cpf)
+        {
+            return _repository.ListarPacientePorCpf(cpf);
+        }
     }
 }
