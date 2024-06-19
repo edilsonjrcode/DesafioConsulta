@@ -118,25 +118,9 @@ namespace DesafioCSharp2.Utils
             }
         }
 
-        // public static bool PeriodoFuturo(this ConsultaDto consulta)
-        // {
-        //     try
-        //     {
-        //         consulta.HoraInicial.ConverteHora();
-        //         consulta.HoraFinal.ConverteHora();
-        //         TimeSpan horaAtual = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
-        //         if (consulta.DataConsulta.ConverteData() >= new DateTime())
-        //         {
-        //             System.Console.WriteLine("A data da consulta é maior ou igual a data de hoje");
-        //             return false;
-        //         }
-        //     }
-        //     catch (Exception e)
-        //     {
-        //         throw;
-        //     }
-        //     return true;
-        // }
+        public static String ConverteTimeToString(this TimeSpan time){
+            return time.ToString().Substring(0,2)+time.ToString().Substring(3,2);
+        }
     }
 }
 

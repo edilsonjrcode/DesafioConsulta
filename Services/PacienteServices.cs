@@ -29,6 +29,10 @@ namespace DesafioCSharp2.Services {
             return false;
         }
 
+        public bool CpfEstaCadastrado(string cpf){
+            return _repository.VerificaSeCpfEstaCadastrado(cpf);
+        }
+
         public List<PacienteDto> ListarPacientesPorNome(){
             if(_repository.ListarPacientesPorNome().Count() <= 0){
                 return [];

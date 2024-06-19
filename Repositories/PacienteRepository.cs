@@ -25,7 +25,6 @@ namespace DesafioCSharp2.Repositories
                 }
             }
             return false;
-
         }
 
         public void IncluirPaciente(PacienteDto paciente)

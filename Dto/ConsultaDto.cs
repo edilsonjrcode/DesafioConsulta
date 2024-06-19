@@ -5,39 +5,39 @@ using System.Text;
 using System.Threading.Tasks;
 using DesafioCSharp2.Utils;
 
-namespace DesafioCSharp2.Dto {
-    class ConsultaDto {
+namespace DesafioCSharp2.Dto
+{
+    class ConsultaDto
+    {
         public string Cpf { get; set; }
         public string DataConsulta { get; set; }
         public string HoraInicial { get; set; }
         public string HoraFinal { get; set; }
 
-        public ConsultaDto(string Cpf, string DataConsulta, string HoraInicial, string HoraFinal){
+        public ConsultaDto(string Cpf, string DataConsulta, string HoraInicial, string HoraFinal)
+        {
             this.Cpf = Cpf;
             this.DataConsulta = DataConsulta;
             this.HoraInicial = HoraInicial;
             this.HoraFinal = HoraFinal;
         }
 
-        
+
         public bool PeriodoFuturo()
         {
             try
             {
-                HoraInicial.ConverteHora();
-                HoraFinal.ConverteHora();
-                TimeSpan horaAtual = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
-                if (DataConsulta.ConverteData() >= new DateTime())
+                if ((DataConsulta.ConverteData() > DateTime.Now.Date || (DataConsulta.ConverteData() == DateTime.Now.Date && HoraInicial.ConverteHora() > new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second))) 
+                && HoraFinal.ConverteHora() > HoraInicial.ConverteHora())
                 {
-                    System.Console.WriteLine("A data da consulta é maior ou igual a data de hoje");
-                    return false;
+                    return true;
                 }
             }
             catch (Exception e)
             {
                 throw;
             }
-            return true;
+            return false;
         }
     }
 }

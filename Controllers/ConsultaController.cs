@@ -13,5 +13,19 @@ namespace DesafioCSharp2.Controllers {
 
         ConsultaServices _services = new ConsultaServices();
 
+        public bool AddConsulta(bool cpfCadastrado, ConsultaDto paciente){
+            try {
+                _services.AgendarConsulta(cpfCadastrado, paciente);
+            }
+            catch (Exception erro){
+                throw;
+            }
+            return true;
+        }
+
+        public List<ConsultaDto> ListarConsultas(){
+            return _services.ListarConsultas();
+        }
+
     }
 }

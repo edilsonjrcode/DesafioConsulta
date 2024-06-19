@@ -8,36 +8,30 @@ class Program {
 
     public static void Main(String[] args) {
 
-        PacienteController controller = new PacienteController();
-        ConsultaServices _services = new ConsultaServices();
+        PacienteController pacienteController = new PacienteController();
+        ConsultaController consultaController = new ConsultaController();
 
         PacienteDto paciente = new PacienteDto("Joãozinho", "02136548977", "18061981");
         PacienteDto paciente2 = new PacienteDto("Adamastor", "70698772423", "15042001");
         PacienteDto paciente3 = new PacienteDto("Pedrita", "32156987589", "16022009");
 
-        controller.AddPaciente(paciente); 
-        controller.AddPaciente(paciente2); 
-        controller.AddPaciente(paciente3); 
+        pacienteController.AddPaciente(paciente); 
+        pacienteController.AddPaciente(paciente2); 
+        pacienteController.AddPaciente(paciente3); 
 
-        controller.ListarPorNome();
-        controller.ListarPorCpf();
+        pacienteController.ListarPorNome();
+        pacienteController.ListarPorCpf();
 
-        ConsultaDto consulta = new ConsultaDto("32156987589", "18062024", "1500", "1600");
-        _services.AgendarConsulta(consulta);
+        ConsultaDto consulta  = new ConsultaDto("32156987589", "20062024", "1500", "1600");
+        ConsultaDto consulta1 = new ConsultaDto("32156987589", "21062024", "1500", "1600");
+        consultaController.AddConsulta(pacienteController.CpfEstaCadastrado(consulta.Cpf),consulta);
+        consultaController.AddConsulta(pacienteController.CpfEstaCadastrado(consulta1.Cpf),consulta1);
+        consultaController.ListarConsultas();
+        System.Console.WriteLine("Fim");
 
-        
-
-        // string time = "1645";
-
-        // time.ValidaHora();
-
-        // TimeSpan t1 = new TimeSpan(15,40,00);
-        // System.Console.WriteLine(t1);
-        // TimeSpan t2 = time.ConverteHora();
-        // System.Console.WriteLine(t2);
-        // TimeSpan t3 = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
-        // System.Console.WriteLine(t3 > t2);
-
-
+        // TimeSpan span = new TimeSpan(15,00,00);
+        // string hora = span.Hours.ToString();
+        // string minutos = span.Minutes.ToString();
+        // System.Console.WriteLine(hora+minutos);
     } 
 }

@@ -23,6 +23,10 @@ namespace DesafioCSharp2.Controllers {
             return true;
         }
 
+        public bool CpfEstaCadastrado(string cpf){
+            return _services.CpfEstaCadastrado(cpf);
+        }
+
         public List<PacienteDto> ListarPorNome(){
             return _services.ListarPacientesPorNome();
         }

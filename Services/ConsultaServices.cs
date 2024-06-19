@@ -1,4 +1,5 @@
 ﻿using DesafioCSharp2.Dto;
+using DesafioCSharp2.Model;
 using DesafioCSharp2.Repositories;
 using DesafioCSharp2.Utils;
 using System;
@@ -11,24 +12,30 @@ namespace DesafioCSharp2.Services {
     class ConsultaServices {
 
         private ConsultaRepository _repositoryConsulta = new ConsultaRepository();
-        private PacienteRepository _repositoryPaciente = new PacienteRepository();
 
-        public bool AgendarConsulta(ConsultaDto consulta){
+        public bool AgendarConsulta(bool CpfCadastrado, ConsultaDto consulta){
             try{
-                _repositoryPaciente.VerificaSeCpfEstaCadastrado(consulta.Cpf);
-                consulta.DataConsulta.ValidaData();
-                consulta.HoraInicial.ValidaHora();
-                consulta.HoraFinal.ValidaHora();
-                if(_repositoryPaciente.VerificaSeCpfEstaCadastrado(consulta.Cpf)){
-                     consulta.PeriodoFuturo();
-                } else {
-                    throw new Exception("CPF não já está cadastrado!");
+                if(CpfCadastrado){
+                    consulta.DataConsulta.ValidaData();
+                    consulta.HoraInicial.ValidaHora();
+                    consulta.HoraFinal.ValidaHora();
+                    _repositoryConsulta.VerificaSePossuiAgendamento(consulta.Cpf);
+                    if (consulta.PeriodoFuturo()){
+                        _repositoryConsulta.AgendarConsulta(consulta);
+                        return true;
+                    }
+                }
+                else {
+                    throw new Exception("CPF não está cadastrado!");
                 }
             } catch (Exception e){
                 throw;
             }
             return false;
+        }
 
+        public List<ConsultaDto> ListarConsultas(){
+            return _repositoryConsulta.TransformaTipoListaDto();
         }
 
     }
