@@ -7,35 +7,46 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DesafioCSharp2.Repositories {
-    class PacienteRepository {
+namespace DesafioCSharp2.Repositories
+{
+    class PacienteRepository
+    {
 
         private List<Paciente> pacientes = [];
 
-        public bool VerificaSeCpfEstaCadastrado(string cpf){
-            foreach (Paciente pacienteCadastrado in pacientes){
-                if (pacienteCadastrado.Cpf == cpf){
-                    throw new Exception("CPF já está cadastrado!");
+        public bool VerificaSeCpfEstaCadastrado(string cpf)
+        {
+            foreach (Paciente pacienteCadastrado in pacientes)
+            {
+                if (pacienteCadastrado.Cpf == cpf)
+                {
+                    return true;
+                    // throw new Exception("CPF já está cadastrado!");
                 }
-            }           
+            }
             return false;
+
         }
 
-        public void IncluirPaciente(PacienteDto paciente) {
+        public void IncluirPaciente(PacienteDto paciente)
+        {
             Paciente novoPaciente = new Paciente(paciente.Nome, paciente.Cpf, paciente.DataDeNascimento.ConverteData());
             pacientes.Add(novoPaciente);
         }
 
-        public void ExcluirPaciente(PacienteDto paciente) {
+        public void ExcluirPaciente(PacienteDto paciente)
+        {
             Paciente novoPaciente = new Paciente(paciente.Nome, paciente.Cpf, paciente.DataDeNascimento.ConverteData());
             pacientes.Remove(novoPaciente);
         }
 
-        public List<PacienteDto> TransformaTipoListaDto(){
-            
-            List<PacienteDto> listaPacientes = new List<PacienteDto>(); 
+        public List<PacienteDto> TransformaTipoListaDto()
+        {
 
-            foreach (Paciente paciente in pacientes){
+            List<PacienteDto> listaPacientes = new List<PacienteDto>();
+
+            foreach (Paciente paciente in pacientes)
+            {
                 PacienteDto pacienteDto = new PacienteDto(paciente.Nome, paciente.Cpf, paciente.DataDeNascimento.ToString("ddMMyyyy"));
                 listaPacientes.Add(pacienteDto);
             }
@@ -43,11 +54,13 @@ namespace DesafioCSharp2.Repositories {
             return listaPacientes;
         }
 
-        public List<PacienteDto> ListarPacientesPorNome() {
+        public List<PacienteDto> ListarPacientesPorNome()
+        {
             return TransformaTipoListaDto().OrderBy(o => o.Nome).ToList();
         }
 
-        public List<PacienteDto> ListarPacientesPorCpf() {
+        public List<PacienteDto> ListarPacientesPorCpf()
+        {
             return TransformaTipoListaDto().OrderBy(o => o.Cpf).ToList();
         }
     }

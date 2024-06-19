@@ -15,10 +15,14 @@ namespace DesafioCSharp2.Services {
 
         public bool AgendarConsulta(ConsultaDto consulta){
             try{
-                consulta.DataConsulta.ValidaData();
                 _repositoryPaciente.VerificaSeCpfEstaCadastrado(consulta.Cpf);
-                if(!_repositoryPaciente.VerificaSeCpfEstaCadastrado(consulta.Cpf)){
-                     
+                consulta.DataConsulta.ValidaData();
+                consulta.HoraInicial.ValidaHora();
+                consulta.HoraFinal.ValidaHora();
+                if(_repositoryPaciente.VerificaSeCpfEstaCadastrado(consulta.Cpf)){
+                     consulta.PeriodoFuturo();
+                } else {
+                    throw new Exception("CPF não já está cadastrado!");
                 }
             } catch (Exception e){
                 throw;
