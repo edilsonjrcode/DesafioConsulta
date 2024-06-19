@@ -15,8 +15,10 @@ namespace DesafioCSharp2.Repositories
             {
                 if (ConsultaCadastrada.Cpf == cpf)
                 {
-                    if(ConsultaCadastrada.DataConsulta > DateTime.Now.Date){
-                        throw new Exception("O usuário já possui um agendamento.");
+                    if (ConsultaCadastrada.DataConsulta > DateTime.Now.Date)
+                    {
+                        return true;
+                        // throw new Exception("O usuário já possui um agendamento.");
                     }
                 }
             }
@@ -28,19 +30,32 @@ namespace DesafioCSharp2.Repositories
 
             foreach (Consulta ConsultaCadastrada in Consultas)
             {
-                if(ConsultaCadastrada.DataConsulta == consulta.DataConsulta.ConverteData()){
-                    
+                if (ConsultaCadastrada.DataConsulta == consulta.DataConsulta.ConverteData())
+                {
+                    if (consulta.HoraInicial.ConverteHora() >= ConsultaCadastrada.HoraInicial && consulta.HoraInicial.ConverteHora() <= ConsultaCadastrada.HoraFinal
+                    && consulta.HoraFinal.ConverteHora() >= ConsultaCadastrada.HoraInicial && consulta.HoraInicial.ConverteHora() <= ConsultaCadastrada.HoraFinal)
+                    {
+                        throw new Exception("Já existe um agendamento nesse horário, escolha um horário diferente.");
+                    }
                 }
-
             }
             Consulta novaConsulta = new Consulta(consulta.Cpf, consulta.DataConsulta.ConverteData(), consulta.HoraInicial.ConverteHora(), consulta.HoraFinal.ConverteHora());
             Consultas.Add(novaConsulta);
         }
 
-        public void CancelarConsulta(ConsultaDto consulta)
+        public bool CancelarConsulta(ConsultaDto consulta)
         {
-            Consulta novaConsulta = new Consulta(consulta.Cpf, consulta.DataConsulta.ConverteData(), consulta.HoraInicial.ConverteHora(), consulta.HoraFinal.ConverteHora());
-            Consultas.Remove(novaConsulta);
+
+            foreach (Consulta ConsultaCadastrada in Consultas)
+            {
+                if (ConsultaCadastrada.Cpf == consulta.Cpf && ConsultaCadastrada.DataConsulta == consulta.DataConsulta.ConverteData()
+                && ConsultaCadastrada.HoraInicial == consulta.HoraInicial.ConverteHora())
+                {
+                    Consultas.Remove(ConsultaCadastrada);
+                    return true;
+                }
+            }
+            throw new Exception("Os dados informados não são semelhantes ao agendamento existente.");
         }
 
         public List<Consulta> ListarConsulta()

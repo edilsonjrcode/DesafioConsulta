@@ -14,7 +14,7 @@ namespace DesafioCSharp2.Model {
         public Consulta(string Cpf, DateTime DataConsulta, TimeSpan HoraInicial, TimeSpan HoraFinal){
             this.Cpf = Cpf;
             this.DataConsulta = DataConsulta;
-            this.HoraFinal = HoraInicial;
+            this.HoraInicial = HoraInicial;
             this.HoraFinal = HoraFinal;
         }
     }

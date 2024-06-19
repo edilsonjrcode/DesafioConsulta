@@ -37,7 +37,7 @@ namespace DesafioCSharp2.Utils
                 throw new Exception("ERRO: A data precisa estar no formato DDMMYYYY. Ex: 01012000 ");
             }
             DateTime dataConvertida = DateTime.ParseExact(data, "ddMMyyyy", CultureInfo.InvariantCulture);
-            return dataConvertida;
+            return dataConvertida.Date;
         }
 
         public static bool ValidaData(this string data)
@@ -112,7 +112,7 @@ namespace DesafioCSharp2.Utils
                 }
                 else
                 {
-                    throw new Exception("ERRO: A hora precisa estar no formato HHMM. Ex: 1545");
+                    throw new Exception("ERRO: O horário permitido deve ter o intervalo de 15min. Ex: 1545, 1630");
                 }
                 return true;
             }

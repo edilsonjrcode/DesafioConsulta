@@ -23,6 +23,16 @@ namespace DesafioCSharp2.Controllers {
             return true;
         }
 
+        public bool DeleteConsulta(bool cpfCadastrado, ConsultaDto paciente){
+            try {
+                _services.RemoverConsulta(cpfCadastrado, paciente);
+            }
+            catch (Exception erro){
+                throw;
+            }
+            return true;
+        }
+
         public List<ConsultaDto> ListarConsultas(){
             return _services.ListarConsultas();
         }

@@ -21,7 +21,6 @@ namespace DesafioCSharp2.Repositories
                 if (pacienteCadastrado.Cpf == cpf)
                 {
                     return true;
-                    // throw new Exception("CPF já está cadastrado!");
                 }
             }
             return false;
