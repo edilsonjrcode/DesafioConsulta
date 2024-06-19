@@ -7,21 +7,20 @@ namespace DesafioCSharp2.Services
     public class PacienteServices
     {
 
-        PacienteRepository _repository = new PacienteRepository();
+        readonly PacienteRepository _repository = new PacienteRepository();
 
         public bool IncluirPaciente(PacienteDto paciente)
         {
             try
             {
-                // paciente.Cpf.ValidaCpf();
-                // paciente.Nome.ValidaNome();
-                // paciente.DataDeNascimento.ValidaData();
                 paciente.DataDeNascimento.ValidaSeCrianca();
                 if (!_repository.VerificaSeCpfEstaCadastrado(paciente.Cpf))
                 {
                     _repository.IncluirPaciente(paciente);
                     return true;
-                } else {
+                }
+                else
+                {
                     throw new Exception("CPF já está cadastrado");
                 }
             }
@@ -58,7 +57,7 @@ namespace DesafioCSharp2.Services
 
         public List<PacienteDto> ListarPacientesPorNome()
         {
-            if (_repository.ListarPacientesPorNome().Count() <= 0)
+            if (_repository.ListarPacientesPorNome().Count <= 0)
             {
                 return [];
             }
@@ -68,7 +67,7 @@ namespace DesafioCSharp2.Services
 
         public List<PacienteDto> ListarPacientesPorCpf()
         {
-            if (_repository.ListarPacientesPorCpf().Count() <= 0)
+            if (_repository.ListarPacientesPorCpf().Count <= 0)
             {
                 return [];
             }

@@ -9,7 +9,7 @@ namespace DesafioCSharp2.Utils
         public static bool ValidaCpf(this string cpf)
         {
             if (string.IsNullOrWhiteSpace(cpf) || cpf.Length != 11){
-                throw new Exception("Tamanho de Cpf inválido!");
+                throw new Exception("CPF inválido!");
             }
 
             cpf = Regex.Replace(cpf, "[^0-9]", "");
@@ -146,7 +146,7 @@ namespace DesafioCSharp2.Utils
                 }
                 else
                 {
-                    throw new Exception("ERRO: O horário permitido deve ter o intervalo de 15min. Ex: 1545, 1630");
+                    
                 }
                 return true;
             }

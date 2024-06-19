@@ -28,7 +28,9 @@ namespace DesafioCSharp2.Services
                             {
                                 _repositoryConsulta.AgendarConsulta(consulta);
                                 return true;
-                            } else {
+                            }
+                            else
+                            {
                                 throw new Exception("O agendamento precisa ser feito em uma data atual ou futura!");
                             }
                         }
@@ -113,6 +115,11 @@ namespace DesafioCSharp2.Services
         public List<ConsultaDto> ListarConsultaPorCpf(string cpf)
         {
             return _repositoryConsulta.ListarConsultaPorCpf(cpf);
+        }
+
+        public bool ApagarAgendamentosAntigos(string cpf)
+        {
+            return _repositoryConsulta.ApagarAgendamentosAntigos(cpf);
         }
     }
 }

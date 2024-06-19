@@ -2,269 +2,290 @@ using DesafioCSharp2.Controllers;
 using DesafioCSharp2.Dto;
 using DesafioCSharp2.Utils;
 
-public class MenuConsultas(PacienteController pacienteController, ConsultaController consultaController)
+namespace DesafioCSharp2.Views
 {
-
-    static void PrintError(String msg)
-    {
-        Exception e = new Exception(msg);
-        Console.ForegroundColor = ConsoleColor.Red;
-        Console.WriteLine("\nOcorreu um erro: {0}\n", e.Message);
-        Console.ResetColor();
-    }
-
-    public void VCadastrarConsulta()
+    public class MenuConsultas(PacienteController pacienteController, ConsultaController consultaController)
     {
 
-        int count = 1;
-        string cpf = "";
-        string data = "";
-        string horaInicial = "";
-        string horaFinal = "";
-
-        while (count < 4)
+        static void PrintError(string msg)
         {
-            try
+            Exception e = new(msg);
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine("\nOcorreu um erro: {0}\n", e.Message);
+            Console.ResetColor();
+        }
+
+        public void VCadastrarConsulta()
+        {
+
+            int count = 1;
+            string cpf = "";
+            string data = "";
+            string horaInicial = "";
+            string horaFinal = "";
+
+            while (count <= 4)
             {
-
-                if (count == 1)
+                try
                 {
-                    Console.Write("CPF: ");
-                    cpf = Console.ReadLine();
-                    try
-                    {
-                        cpf.ValidaCpf();
-                    }
-                    catch (Exception e)
-                    {
-                        PrintError(e.Message);
-                        continue;
-                    }
-                    count++;
-                }
 
-                Console.Write("Data da Consulta: ");
-                if (count == 2)
-                {
-                    data = Console.ReadLine();
-                    try
+                    if (count == 1)
                     {
-                        data.ValidaData();
+                        Console.Write("CPF: ");
+                        cpf = Console.ReadLine();
+                        try
+                        {
+                            cpf.ValidaCpf();
+                        }
+                        catch (Exception e)
+                        {
+                            PrintError(e.Message);
+                            continue;
+                        }
+                        count++;
                     }
-                    catch (Exception e)
-                    {
-                        PrintError(e.Message);
-                        continue;
-                    }
-                    count++;
-                }
 
-                Console.Write("Hora Inicial: ");
-                if (count == 3)
-                {
-                    horaInicial = Console.ReadLine();
-                    try
+                    if (count == 2)
                     {
-                        horaInicial.ValidaHora();
+                        Console.Write("Data da Consulta: ");
+                        data = Console.ReadLine();
+                        try
+                        {
+                            data.ValidaData();
+                        }
+                        catch (Exception e)
+                        {
+                            PrintError(e.Message);
+                            continue;
+                        }
+                        count++;
                     }
-                    catch (Exception e)
-                    {
-                        PrintError(e.Message);
-                        continue;
-                    }
-                    count++;
-                }
 
-                Console.Write("Hora Final: ");
-                if (count == 4)
-                {
-                    horaFinal = Console.ReadLine();
-                    try
+                    if (count == 3)
                     {
-                        horaInicial.ValidaHora();
+                        Console.Write("Hora Inicial: ");
+                        horaInicial = Console.ReadLine();
+                        try
+                        {
+                            horaInicial.ValidaHora();
+                        }
+                        catch (Exception e)
+                        {
+                            PrintError(e.Message);
+                            continue;
+                        }
+                        count++;
                     }
-                    catch (Exception e)
+
+                    if (count == 4)
                     {
-                        PrintError(e.Message);
-                        continue;
+                        Console.Write("Hora Final: ");
+                        horaFinal = Console.ReadLine();
+                        try
+                        {
+                            horaInicial.ValidaHora();
+                        }
+                        catch (Exception e)
+                        {
+                            PrintError(e.Message);
+                            continue;
+                        }
                     }
+                    ConsultaDto consulta = new ConsultaDto(cpf, data, horaInicial, horaFinal);
+                    consultaController.AddConsulta(pacienteController.CpfEstaCadastrado(consulta.Cpf), consulta);
+                    Console.WriteLine("Agendamento realizado com sucesso!\n");
+
                 }
-                ConsultaDto consulta = new ConsultaDto(cpf, data, horaInicial, horaFinal);
-                consultaController.AddConsulta(pacienteController.CpfEstaCadastrado(consulta.Cpf), consulta);
-                System.Console.WriteLine("Agendamento realizado com sucesso!\n");
+                catch (Exception e)
+                {
+                    PrintError(e.Message);
+                    continue;
+                }
+                count++;
 
             }
-            catch (Exception e)
-            {
-                PrintError(e.Message);
-                continue;
-            }
-            count++;
+
 
         }
 
-
-    }
-
-    public void VDeletarConsulta()
-    {
-        int count = 1;
-        string cpf = "";
-        string data = "";
-        string horaInicial = "";
-
-        while (count < 3)
+        public void VDeletarConsulta()
         {
-            try
+            int count = 1;
+            string cpf = "";
+            string data = "";
+            string horaInicial = "";
+
+            while (count <= 3)
             {
-                if (count == 1)
+                try
                 {
-                    Console.Write("CPF: ");
-                    cpf = Console.ReadLine();
-                    try
+                    if (count == 1)
                     {
-                        cpf.ValidaCpf();
+                        Console.Write("CPF: ");
+                        cpf = Console.ReadLine();
+                        try
+                        {
+                            cpf.ValidaCpf();
+                        }
+                        catch (Exception e)
+                        {
+                            PrintError(e.Message);
+                            continue;
+                        }
+                        count++;
                     }
-                    catch (Exception e)
-                    {
-                        PrintError(e.Message);
-                        continue;
-                    }
-                    count++;
-                }
 
-                Console.Write("Data da Consulta: ");
-                if (count == 2)
-                {
-                    data = Console.ReadLine();
-                    try
+                    if (count == 2)
                     {
-                        data.ValidaData();
-                    }
-                    catch (Exception e)
-                    {
-                        PrintError(e.Message);
-                        continue;
-                    }
-                    count++;
-                }
+                        Console.Write("Data da Consulta: ");
 
-                Console.Write("Hora Inicial: ");
-                if (count == 3)
-                {
-                    horaInicial = Console.ReadLine();
-                    try
-                    {
-                        horaInicial.ValidaHora();
+                        data = Console.ReadLine();
+                        try
+                        {
+                            data.ValidaData();
+                        }
+                        catch (Exception e)
+                        {
+                            PrintError(e.Message);
+                            continue;
+                        }
+                        count++;
                     }
-                    catch (Exception e)
+
+                    if (count == 3)
                     {
-                        PrintError(e.Message);
-                        continue;
+                        Console.Write("Hora Inicial: ");
+
+                        horaInicial = Console.ReadLine();
+                        try
+                        {
+                            horaInicial.ValidaHora();
+                        }
+                        catch (Exception e)
+                        {
+                            PrintError(e.Message);
+                            continue;
+                        }
                     }
+                    ConsultaDto consulta = new ConsultaDto(cpf, data, horaInicial, "");
+                    consultaController.DeleteConsulta(pacienteController.CpfEstaCadastrado(consulta.Cpf), consulta);
+                    Console.WriteLine("Agendamento excluído com sucesso!\n");
+
                 }
-                ConsultaDto consulta = new ConsultaDto(cpf, data, horaInicial, "");
-                consultaController.DeleteConsulta(pacienteController.CpfEstaCadastrado(consulta.Cpf), consulta);
-                System.Console.WriteLine("Agendamento excluído com sucesso!\n");
+                catch (Exception e)
+                {
+                    PrintError(e.Message);
+                    break;
+                }
+                count++;
 
             }
-            catch (Exception e)
-            {
-                PrintError(e.Message);
-                continue;
-            }
-            count++;
-
         }
-    }
 
-    public void VListarAgenda()
-    {
-        // Console.Clear();
-        Console.WriteLine("Apresentar a agenda T-Toda ou P-Periodo:");
-        var entrada = Console.ReadLine();
-
-        switch (entrada)
+        public void VListarAgenda()
         {
-            case "T":
-                List<ConsultaDto> consultas = consultaController.ListarConsultas();
-                System.Console.WriteLine("-------------------------------------------------------------");
-                System.Console.WriteLine("Data        H.Ini     H.Fim     Tempo      Nome       Dt.Nasc.");
-                System.Console.WriteLine("-------------------------------------------------------------");
-                foreach (ConsultaDto consulta in consultas)
-                {
-                    List<PacienteDto> paciente = pacienteController.ListarPacientePorCpf(consulta.Cpf);
-                    if (consultas.Count > 0)
-                    {
-                        System.Console.WriteLine("{0} {1} {2} {3} {4} {5}", consulta.DataConsulta.ConverteData().ToString("dd/MM/yyyy"), 
-                        consulta.HoraInicial.ConverteHora(),consulta.HoraFinal.ConverteHora(), consulta.HoraFinal.ConverteHora() - consulta.HoraInicial.ConverteHora(), 
-                        paciente[0].Nome, paciente[0].DataDeNascimento.ConverteData().ToString("dd/MM/yyyy"));
-                    }
-                }
-                System.Console.WriteLine("-------------------------------------------------------------");
-
-
-                break;
-            case "P":
-                System.Console.Write("Data inicial: ");
-                var dataInicial = Console.ReadLine();
-
-                System.Console.Write("Data final: ");
-                var dataFinal = Console.ReadLine();
-
-                List<ConsultaDto> consultasPorPeriodo = consultaController.ListarConsultasPorPeriodo(dataInicial, dataFinal);
-
-
-                System.Console.WriteLine("-------------------------------------------------------------");
-                System.Console.WriteLine("Data        H.Ini     H.Fim     Tempo      Nome       Dt.Nasc.");
-                System.Console.WriteLine("-------------------------------------------------------------");
-                   foreach (ConsultaDto consulta in consultasPorPeriodo)
-                {
-                    List<PacienteDto> paciente = pacienteController.ListarPacientePorCpf(consulta.Cpf);
-                    if (consultasPorPeriodo.Count > 0)
-                    {
-                        System.Console.WriteLine("{0} {1} {2} {3} {4} {5}", consulta.DataConsulta.ConverteData().ToString("dd/MM/yyyy"), 
-                        consulta.HoraInicial.ConverteHora(),consulta.HoraFinal.ConverteHora(), consulta.HoraFinal.ConverteHora() - consulta.HoraInicial.ConverteHora(), 
-                        paciente[0].Nome, paciente[0].DataDeNascimento.ConverteData().ToString("dd/MM/yyyy"));
-                    }
-                }
-                System.Console.WriteLine("-------------------------------------------------------------");
-                break;
-            default:
-                Console.WriteLine("Opção inválida. Tente novamente.");
-                break;
-        }
-    }
-    public bool Executar()
-    {
-        while (true)
-        {
-            Console.WriteLine("Consultas");
-            Console.WriteLine("1 - Agendar Consulta");
-            Console.WriteLine("2 - Cancelar Agendamento");
-            Console.WriteLine("3 - Listar Agenda");
-            Console.WriteLine("4 - Voltar p/ menu principal");
-
-            var entrada = Console.ReadLine();
+            // Console.Clear();
+            Console.WriteLine("Apresentar a agenda T-Toda ou P-Periodo:");
+            var entrada = Console.ReadLine()?.ToUpper();
 
             switch (entrada)
             {
-                case "1":
-                    VCadastrarConsulta();
+                case "T":
+                    try
+                    {
+                        List<ConsultaDto> consultas = consultaController.ListarConsultas();
+                        Console.WriteLine("-------------------------------------------------------------");
+                        Console.WriteLine("Data        H.Ini     H.Fim     Tempo      Nome       Dt.Nasc.");
+                        Console.WriteLine("-------------------------------------------------------------");
+                        foreach (ConsultaDto consulta in consultas)
+                        {
+                            List<PacienteDto> paciente = pacienteController.ListarPacientePorCpf(consulta.Cpf);
+                            if (consultas.Count > 0)
+                            {
+                                Console.WriteLine("{0} {1}  {2}   {3}   {4} {5}", consulta.DataConsulta.ConverteData().ToString("dd/MM/yyyy"),
+                                consulta.HoraInicial.ConverteHora(), consulta.HoraFinal.ConverteHora(), consulta.HoraFinal.ConverteHora() - consulta.HoraInicial.ConverteHora(),
+                                paciente[0].Nome, paciente[0].DataDeNascimento.ConverteData().ToString("dd/MM/yyyy"));
+                            }
+                        }
+                        Console.WriteLine("-------------------------------------------------------------");
+                    }
+                    catch (Exception e)
+                    {
+                        PrintError(e.Message);
+                    }
                     break;
-                case "2":
-                    VDeletarConsulta();
+
+
+                case "P":
+
+                    try
+                    {
+
+                        Console.Write("Data inicial: ");
+                        var dataInicial = Console.ReadLine();
+
+                        Console.Write("Data final: ");
+                        var dataFinal = Console.ReadLine();
+
+                        List<ConsultaDto> consultasPorPeriodo = consultaController.ListarConsultasPorPeriodo(dataInicial, dataFinal);
+
+
+                        Console.WriteLine("-------------------------------------------------------------");
+                        Console.WriteLine("Data        H.Ini     H.Fim     Tempo      Nome       Dt.Nasc.");
+                        Console.WriteLine("-------------------------------------------------------------");
+                        foreach (ConsultaDto consulta in consultasPorPeriodo)
+                        {
+                            List<PacienteDto> paciente = pacienteController.ListarPacientePorCpf(consulta.Cpf);
+                            if (consultasPorPeriodo.Count > 0)
+                            {
+                                Console.WriteLine("{0} {1}  {2}   {3}   {4} {5}", consulta.DataConsulta.ConverteData().ToString("dd/MM/yyyy"),
+                                consulta.HoraInicial.ConverteHora(), consulta.HoraFinal.ConverteHora(), consulta.HoraFinal.ConverteHora() - consulta.HoraInicial.ConverteHora(),
+                                paciente[0].Nome, paciente[0].DataDeNascimento.ConverteData().ToString("dd/MM/yyyy"));
+                            }
+                        }
+                        Console.WriteLine("-------------------------------------------------------------");
+                    }
+                    catch (Exception e)
+                    {
+                        PrintError(e.Message);
+                    }
                     break;
-                case "3":
-                    VListarAgenda();
-                    break;
-                case "4":
-                    return false;
                 default:
                     Console.WriteLine("Opção inválida. Tente novamente.");
                     break;
             }
         }
+        public bool Executar()
+        {
+            while (true)
+            {
+                Console.WriteLine("Consultas");
+                Console.WriteLine("1 - Agendar Consulta");
+                Console.WriteLine("2 - Cancelar Agendamento");
+                Console.WriteLine("3 - Listar Agenda");
+                Console.WriteLine("4 - Voltar p/ menu principal");
 
+                var entrada = Console.ReadLine();
+
+                switch (entrada)
+                {
+                    case "1":
+                        VCadastrarConsulta();
+                        break;
+                    case "2":
+                        VDeletarConsulta();
+                        break;
+                    case "3":
+                        VListarAgenda();
+                        break;
+                    case "4":
+                        return false;
+                    default:
+                        Console.WriteLine("Opção inválida. Tente novamente.");
+                        break;
+                }
+            }
+
+        }
     }
 }

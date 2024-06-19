@@ -1,38 +1,40 @@
 using DesafioCSharp2.Controllers;
 
-public class MenuPrincipal(PacienteController pacienteController, ConsultaController consultaController)
+namespace DesafioCSharp2.Views
 {
-    MenuPacientes menuPacientes = new MenuPacientes(pacienteController, consultaController);
-    MenuConsultas menuConsultas = new MenuConsultas(pacienteController, consultaController);
-
-    public bool Executar()
+    public class MenuPrincipal(PacienteController pacienteController, ConsultaController consultaController)
     {
+        MenuPacientes menuPacientes = new MenuPacientes(pacienteController, consultaController);
+        MenuConsultas menuConsultas = new MenuConsultas(pacienteController, consultaController);
 
-        while (true)
+        public bool Executar()
         {
-            // Console.Clear();
-            Console.WriteLine("Menu Principal");
-            Console.WriteLine("1 - Cadastro de Pacientes");
-            Console.WriteLine("2 - Agenda");
-            Console.WriteLine("3 - Fim");
 
-            var entrada = Console.ReadLine();
-
-            switch (entrada)
+            while (true)
             {
-                case "1":
-                    menuPacientes.Executar();
-                    break;
-                case "2":
-                    menuConsultas.Executar();
-                    break;
-                case "3":
-                    return false;
-                default:
-                    Console.WriteLine("Opção inválida. Tente novamente.");
-                    break;
-            }
-        }
+                Console.WriteLine("Menu Principal");
+                Console.WriteLine("1 - Cadastro de Pacientes");
+                Console.WriteLine("2 - Agenda");
+                Console.WriteLine("3 - Fim");
 
+                var entrada = Console.ReadLine();
+
+                switch (entrada)
+                {
+                    case "1":
+                        menuPacientes.Executar();
+                        break;
+                    case "2":
+                        menuConsultas.Executar();
+                        break;
+                    case "3":
+                        return false;
+                    default:
+                        Console.WriteLine("Opção inválida. Tente novamente.");
+                        break;
+                }
+            }
+
+        }
     }
 }

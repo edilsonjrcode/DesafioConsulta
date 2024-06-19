@@ -1,39 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using DesafioCSharp2.Utils;
+﻿using DesafioCSharp2.Utils;
 
 namespace DesafioCSharp2.Dto
 {
-    public class ConsultaDto
+    public class ConsultaDto(string Cpf, string DataConsulta, string HoraInicial, string HoraFinal)
     {
-        public string Cpf { get; set; }
-        public string DataConsulta { get; set; }
-        public string HoraInicial { get; set; }
-        public string HoraFinal { get; set; }
-
-        public ConsultaDto(string Cpf, string DataConsulta, string HoraInicial, string HoraFinal)
-        {
-            this.Cpf = Cpf;
-            this.DataConsulta = DataConsulta;
-            this.HoraInicial = HoraInicial;
-            this.HoraFinal = HoraFinal;
-        }
-
+        public string Cpf { get; set; } = Cpf;
+        public string DataConsulta { get; set; } = DataConsulta;
+        public string HoraInicial { get; set; } = HoraInicial;
+        public string HoraFinal { get; set; } = HoraFinal;
 
         public bool PeriodoFuturo()
         {
             try
             {
-                if ((DataConsulta.ConverteData() > DateTime.Now.Date || (DataConsulta.ConverteData() == DateTime.Now.Date && HoraInicial.ConverteHora() > new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second))) 
+                if ((DataConsulta.ConverteData() > DateTime.Now.Date || (DataConsulta.ConverteData() == DateTime.Now.Date && HoraInicial.ConverteHora() > new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second)))
                 && HoraFinal.ConverteHora() > HoraInicial.ConverteHora())
                 {
                     return true;
                 }
             }
-            catch (Exception e)
+            catch
             {
                 throw;
             }

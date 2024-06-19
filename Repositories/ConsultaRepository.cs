@@ -7,7 +7,7 @@ namespace DesafioCSharp2.Repositories
     public class ConsultaRepository
     {
 
-        private List<Consulta> Consultas = [];
+        private readonly List<Consulta> Consultas = [];
 
         public bool VerificaSePossuiAgendamento(string cpf)
         {
@@ -19,6 +19,22 @@ namespace DesafioCSharp2.Repositories
                     {
                         return true;
                         // throw new Exception("O usuário já possui um agendamento.");
+                    }
+                }
+            }
+            return false;
+        }
+
+        public bool ApagarAgendamentosAntigos(string cpf)
+        {
+            foreach (Consulta ConsultaCadastrada in Consultas)
+            {
+                if (ConsultaCadastrada.Cpf == cpf)
+                {
+                    if (ConsultaCadastrada.DataConsulta < DateTime.Now.Date)
+                    {
+                        Consultas.Remove(ConsultaCadastrada);
+                        return true;
                     }
                 }
             }

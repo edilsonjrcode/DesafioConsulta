@@ -53,5 +53,10 @@ namespace DesafioCSharp2.Controllers
         {
             return _services.ListarConsultaPorCpf(cpf);
         }
+
+        public bool DeleteAgendamentosAntigos(string cpf)
+        {
+            return _services.ApagarAgendamentosAntigos(cpf);
+        }
     }
 }
