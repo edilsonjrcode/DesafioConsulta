@@ -2,11 +2,8 @@ using DesafioCSharp2.Controllers;
 using DesafioCSharp2.Dto;
 using DesafioCSharp2.Utils;
 
-public class MenuPacientes()
+public class MenuPacientes(PacienteController pacienteController, ConsultaController consultaController)
 {
-    readonly PacienteController pacienteController = new();
-    readonly ConsultaController consultaController = new();
-
     static void PrintError(String msg)
     {
         Exception e = new Exception(msg);
@@ -24,64 +21,118 @@ public class MenuPacientes()
 
         while (count < 3)
         {
-
-            if (count == 1)
+            try
             {
-                Console.Write("CPF: ");
-                cpf = Console.ReadLine();
-                try
+                if (count == 1)
                 {
-                    cpf.ValidaCpf();
+                    Console.Write("CPF: ");
+                    cpf = Console.ReadLine();
+                    try
+                    {
+                        cpf.ValidaCpf();
+                    }
+                    catch (Exception e)
+                    {
+                        PrintError(e.Message);
+                        continue;
+                    }
+                    count++;
                 }
-                catch (Exception e)
-                {
-                    PrintError(e.Message);
-                    continue;
-                }
-                count++;
-            }
 
-            if (count == 2)
-            {
-                Console.Write("Nome: ");
-                nome = Console.ReadLine();
-                try
+                if (count == 2)
                 {
-                    nome.ValidaNome();
+                    Console.Write("Nome: ");
+                    nome = Console.ReadLine();
+                    try
+                    {
+                        nome.ValidaNome();
+                    }
+                    catch (Exception e)
+                    {
+                        PrintError(e.Message);
+                        continue;
+                    }
+                    count++;
                 }
-                catch (Exception e)
-                {
-                    PrintError(e.Message);
-                    continue;
-                }
-                count++;
-            }
 
-            Console.Write("Data de Nascimento: ");
-            if (count == 3)
-            {
-                dataDeNascimento = Console.ReadLine();
-                try
+                Console.Write("Data de Nascimento: ");
+                if (count == 3)
                 {
-                    dataDeNascimento.ValidaData();
+                    dataDeNascimento = Console.ReadLine();
+                    try
+                    {
+                        dataDeNascimento.ValidaData();
+                    }
+                    catch (Exception e)
+                    {
+                        PrintError(e.Message);
+                        continue;
+                    }
+                    count++;
+
                 }
-                catch (Exception e)
-                {
-                    PrintError(e.Message);
-                    continue;
-                }
-                count++;
+
+                PacienteDto paciente = new PacienteDto(nome, cpf, dataDeNascimento);
+                pacienteController.AddPaciente(paciente);
+                System.Console.WriteLine("Paciente cadastrado com sucesso!\n");
             }
-        }
-        
-        PacienteDto paciente = new PacienteDto(nome, cpf, dataDeNascimento);
-        pacienteController.AddPaciente(paciente);
-        if(pacienteController.AddPaciente(paciente)){
-            System.Console.WriteLine("Paciente cadastrado com sucesso!");
+            catch (Exception e)
+            {
+                PrintError(e.Message);
+                continue;
+
+            }
+            count++;
+
         }
     }
 
-    public void Executar()
+    public void VDeletarPaciente(){
+
+        Console.Write("CPF: ");
+        string cpf = Console.ReadLine();
+        try
+        {
+            cpf.ValidaCpf();
+            pacienteController.DeletePaciente(consultaController.PossuiAgendamento(cpf), cpf);
+        }
+        catch (Exception e)
+        {
+            PrintError(e.Message);
+        }
+    }
+
+    public void VListarPacientePorCpf()
+    {
+        List<PacienteDto> pacientes = pacienteController.ListarPorCpf();
+
+        System.Console.WriteLine("------------------------------------------------------------");
+        System.Console.WriteLine("CPF          Nome              Dt.Nasc.             Idade");
+        foreach (PacienteDto paciente in pacientes)
+        {
+            System.Console.WriteLine("{0}      {1}           {2}             {3}", paciente.Cpf, paciente.Nome, paciente.DataDeNascimento, paciente.DataDeNascimento.ConverteIdade());
+            List<ConsultaDto> consultas = consultaController.ListarConsultaPorCpf(paciente.Cpf);
+            if(consultas.Count() > 0){
+                System.Console.WriteLine("Agendado para: {0}", consultas[0].DataConsulta);
+                System.Console.WriteLine("{0} às {1}", consultas[0].HoraInicial, consultas[0].HoraFinal);
+            }
+        }
+        System.Console.WriteLine("------------------------------------------------------------");
+    }
+
+    public void VListarPacientePorNome()
+    {
+        List<PacienteDto> pacientes = pacienteController.ListarPorNome();
+
+        System.Console.WriteLine("------------------------------------------------------------");
+        System.Console.WriteLine("CPF      Nome      Dt.Nasc.     Idade");
+        foreach (PacienteDto paciente in pacientes)
+        {
+            System.Console.WriteLine("{0} {1} {2} {3}", paciente.Cpf, paciente.Nome, paciente.DataDeNascimento, paciente.DataDeNascimento.ConverteIdade());
+        }
+        System.Console.WriteLine("------------------------------------------------------------");
+    }
+    public bool Executar()
     {
         while (true)
         {
@@ -99,18 +150,17 @@ public class MenuPacientes()
                 case "1":
                     VCadastrarPaciente();
                     break;
-                // case "2":
-                //     _consultaController.AgendarConsulta();
-                //     break;
-                // case "3":
-                //     _pacienteController.ListarPacientes();
-                //     break;
-                // case "4":
-                //     _consultaController.AgendarConsulta();
-                //     break;
-                // case "5":
-                //     menuPrincipal.Executar();
-                //     break;
+                case "2":
+                    VDeletarPaciente();
+                    break;
+                case "3":
+                    VListarPacientePorCpf();
+                    break;
+                case "4":
+                    VListarPacientePorNome();
+                    break;
+                case "5":
+                    return false;
                 default:
                     Console.WriteLine("Opção inválida. Tente novamente.");
                     break;

@@ -4,7 +4,7 @@ using DesafioCSharp2.Utils;
 
 namespace DesafioCSharp2.Repositories
 {
-    class PacienteRepository
+    public class PacienteRepository
     {
 
         private List<Paciente> pacientes = [];

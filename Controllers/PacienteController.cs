@@ -3,7 +3,7 @@ using DesafioCSharp2.Services;
 
 namespace DesafioCSharp2.Controllers
 {
-    class PacienteController
+    public class PacienteController
     {
 
         readonly PacienteServices _services = new PacienteServices();

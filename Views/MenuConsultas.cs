@@ -2,11 +2,8 @@ using DesafioCSharp2.Controllers;
 using DesafioCSharp2.Dto;
 using DesafioCSharp2.Utils;
 
-public class MenuConsultas()
+public class MenuConsultas(PacienteController pacienteController, ConsultaController consultaController)
 {
-
-    // readonly MenuPrincipal menuPrincipal = new();
-
 
     static void PrintError(String msg)
     {
@@ -16,7 +13,228 @@ public class MenuConsultas()
         Console.ResetColor();
     }
 
-    public void Executar()
+    public void VCadastrarConsulta()
+    {
+
+        int count = 1;
+        string cpf = "";
+        string data = "";
+        string horaInicial = "";
+        string horaFinal = "";
+
+        while (count < 4)
+        {
+            try
+            {
+
+                if (count == 1)
+                {
+                    Console.Write("CPF: ");
+                    cpf = Console.ReadLine();
+                    try
+                    {
+                        cpf.ValidaCpf();
+                    }
+                    catch (Exception e)
+                    {
+                        PrintError(e.Message);
+                        continue;
+                    }
+                    count++;
+                }
+
+                Console.Write("Data da Consulta: ");
+                if (count == 2)
+                {
+                    data = Console.ReadLine();
+                    try
+                    {
+                        data.ValidaData();
+                    }
+                    catch (Exception e)
+                    {
+                        PrintError(e.Message);
+                        continue;
+                    }
+                    count++;
+                }
+
+                Console.Write("Hora Inicial: ");
+                if (count == 3)
+                {
+                    horaInicial = Console.ReadLine();
+                    try
+                    {
+                        horaInicial.ValidaHora();
+                    }
+                    catch (Exception e)
+                    {
+                        PrintError(e.Message);
+                        continue;
+                    }
+                    count++;
+                }
+
+                Console.Write("Hora Final: ");
+                if (count == 4)
+                {
+                    horaFinal = Console.ReadLine();
+                    try
+                    {
+                        horaInicial.ValidaHora();
+                    }
+                    catch (Exception e)
+                    {
+                        PrintError(e.Message);
+                        continue;
+                    }
+                    count++;
+                }
+                ConsultaDto consulta = new ConsultaDto(cpf, data, horaInicial, horaFinal);
+                consultaController.AddConsulta(pacienteController.CpfEstaCadastrado(consulta.Cpf), consulta);
+                System.Console.WriteLine("Agendamento realizado com sucesso!\n");
+
+            }
+            catch (Exception e)
+            {
+                PrintError(e.Message);
+                continue;
+            }
+            count++;
+
+        }
+
+
+    }
+
+    public void VDeletarConsulta()
+    {
+        int count = 1;
+        string cpf = "";
+        string data = "";
+        string horaInicial = "";
+
+        while (count < 3)
+        {
+            try
+            {
+                if (count == 1)
+                {
+                    Console.Write("CPF: ");
+                    cpf = Console.ReadLine();
+                    try
+                    {
+                        cpf.ValidaCpf();
+                    }
+                    catch (Exception e)
+                    {
+                        PrintError(e.Message);
+                        continue;
+                    }
+                    count++;
+                }
+
+                Console.Write("Data da Consulta: ");
+                if (count == 2)
+                {
+                    data = Console.ReadLine();
+                    try
+                    {
+                        data.ValidaData();
+                    }
+                    catch (Exception e)
+                    {
+                        PrintError(e.Message);
+                        continue;
+                    }
+                    count++;
+                }
+
+                Console.Write("Hora Inicial: ");
+                if (count == 3)
+                {
+                    horaInicial = Console.ReadLine();
+                    try
+                    {
+                        horaInicial.ValidaHora();
+                    }
+                    catch (Exception e)
+                    {
+                        PrintError(e.Message);
+                        continue;
+                    }
+                }
+                ConsultaDto consulta = new ConsultaDto(cpf, data, horaInicial, "");
+                consultaController.DeleteConsulta(pacienteController.CpfEstaCadastrado(consulta.Cpf), consulta);
+                System.Console.WriteLine("Agendamento excluído com sucesso!\n");
+
+            }
+            catch (Exception e)
+            {
+                PrintError(e.Message);
+                continue;
+            }
+            count++;
+
+        }
+    }
+
+    public void VListarAgenda()
+    {
+        // Console.Clear();
+        Console.WriteLine("Apresentar a agenda T-Toda ou P-Periodo:");
+        var entrada = Console.ReadLine();
+
+        switch (entrada)
+        {
+            case "T":
+                List<ConsultaDto> consultas = consultaController.ListarConsultas();
+                System.Console.WriteLine("-------------------------------------------------------------");
+                System.Console.WriteLine("Data H.Ini H.Fim Tempo Nome Dt.Nasc.");
+                System.Console.WriteLine("-------------------------------------------------------------");
+                foreach (ConsultaDto consulta in consultas)
+                {
+                    if (consultas.Count > 0)
+                    {
+                        System.Console.WriteLine("{0}      {1}           {2}             {3}", consulta.DataConsulta, consulta.HoraInicial.ConverteHora(),
+                        consulta.HoraFinal.ConverteHora(), consulta.HoraFinal.ConverteHora() - consulta.HoraInicial.ConverteHora());
+                    }
+                }
+                System.Console.WriteLine("-------------------------------------------------------------");
+
+
+                break;
+            case "P":
+                System.Console.Write("Data inicial: ");
+                var dataInicial = Console.ReadLine();
+
+                System.Console.Write("Data final: ");
+                var dataFinal = Console.ReadLine();
+
+                List<ConsultaDto> consultasPorPeriodo = consultaController.ListarConsultasPorPeriodo(dataInicial, dataFinal);
+
+
+                System.Console.WriteLine("-------------------------------------------------------------");
+                System.Console.WriteLine("Data H.Ini H.Fim Tempo Nome Dt.Nasc.");
+                System.Console.WriteLine("-------------------------------------------------------------");
+                foreach (ConsultaDto consulta in consultasPorPeriodo)
+                {
+
+                    if (consultasPorPeriodo.Count > 0)
+                    {
+                        System.Console.WriteLine("{0}      {1}           {2}             {3}", consulta.DataConsulta, consulta.HoraInicial.ConverteHora(),
+                        consulta.HoraFinal.ConverteHora(), consulta.HoraFinal.ConverteHora() - consulta.HoraInicial.ConverteHora());
+                    }
+                }
+                System.Console.WriteLine("01/01/2022 07:30 08:00 00:30 xxxxxxxxxxxxxxxxxxxxx 99/99/9999");
+                System.Console.WriteLine("-------------------------------------------------------------");
+                break;
+            default:
+                Console.WriteLine("Opção inválida. Tente novamente.");
+                break;
+        }
+    }
+    public bool Executar()
     {
         while (true)
         {
@@ -31,17 +249,16 @@ public class MenuConsultas()
             switch (entrada)
             {
                 case "1":
-                    VCadastrarPaciente();
+                    VCadastrarConsulta();
                     break;
                 case "2":
-                    _consultaController.AgendarConsulta();
+                    VDeletarConsulta();
                     break;
                 case "3":
-                    _pacienteController.ListarPacientes();
+                    VListarAgenda();
                     break;
                 case "4":
-                    _consultaController.AgendarConsulta();
-                    break;
+                    return false;
                 default:
                     Console.WriteLine("Opção inválida. Tente novamente.");
                     break;

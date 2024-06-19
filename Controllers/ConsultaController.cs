@@ -3,7 +3,7 @@ using DesafioCSharp2.Services;
 
 namespace DesafioCSharp2.Controllers
 {
-    class ConsultaController
+    public class ConsultaController
     {
 
         ConsultaServices _services = new ConsultaServices();
@@ -49,5 +49,9 @@ namespace DesafioCSharp2.Controllers
             return _services.ListarConsultasPorPeriodo(dataInicial, dataFinal);
         }
 
+        public List<ConsultaDto> ListarConsultaPorCpf(string cpf)
+        {
+            return _services.ListarConsultaPorCpf(cpf);
+        }
     }
 }

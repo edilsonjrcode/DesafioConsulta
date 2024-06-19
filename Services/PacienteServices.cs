@@ -4,7 +4,7 @@ using DesafioCSharp2.Utils;
 
 namespace DesafioCSharp2.Services
 {
-    class PacienteServices
+    public class PacienteServices
     {
 
         PacienteRepository _repository = new PacienteRepository();
@@ -13,21 +13,22 @@ namespace DesafioCSharp2.Services
         {
             try
             {
-                paciente.Cpf.ValidaCpf();
-                paciente.Nome.ValidaNome();
-                paciente.DataDeNascimento.ValidaData();
+                // paciente.Cpf.ValidaCpf();
+                // paciente.Nome.ValidaNome();
+                // paciente.DataDeNascimento.ValidaData();
                 paciente.DataDeNascimento.ValidaSeCrianca();
                 if (!_repository.VerificaSeCpfEstaCadastrado(paciente.Cpf))
                 {
                     _repository.IncluirPaciente(paciente);
                     return true;
+                } else {
+                    throw new Exception("CPF já está cadastrado");
                 }
             }
             catch
             {
                 throw;
             }
-            return false;
         }
 
         public bool ExcluirPaciente(bool possuiConsulta, string cpf)

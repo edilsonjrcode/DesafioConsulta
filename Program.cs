@@ -6,8 +6,11 @@ class Program
 
     public static void Main(String[] args)
     {
+        
+        PacienteController pacienteController = new();
+        ConsultaController consultaController = new();
 
-        MenuPrincipal menu = new MenuPrincipal();
+        MenuPrincipal menu = new(pacienteController, consultaController);
         menu.Executar();
 
         // PacienteController pacienteController = new PacienteController();

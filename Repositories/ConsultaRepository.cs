@@ -4,7 +4,7 @@ using DesafioCSharp2.Utils;
 
 namespace DesafioCSharp2.Repositories
 {
-    class ConsultaRepository
+    public class ConsultaRepository
     {
 
         private List<Consulta> Consultas = [];
@@ -81,6 +81,11 @@ namespace DesafioCSharp2.Repositories
         {
             return TransformaTipoListaDto().Where(o => o.DataConsulta.ConverteData() >= dataInicial.ConverteData() && o.DataConsulta.ConverteData() <= dataFinal.ConverteData())
             .OrderBy(o => o.DataConsulta).ThenBy(o => o.HoraInicial).ToList();
+        }
+
+        public List<ConsultaDto> ListarConsultaPorCpf(string cpf)
+        {
+            return TransformaTipoListaDto().Where(o => o.Cpf == cpf).ToList();
         }
 
     }

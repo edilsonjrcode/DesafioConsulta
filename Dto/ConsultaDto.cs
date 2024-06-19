@@ -7,7 +7,7 @@ using DesafioCSharp2.Utils;
 
 namespace DesafioCSharp2.Dto
 {
-    class ConsultaDto
+    public class ConsultaDto
     {
         public string Cpf { get; set; }
         public string DataConsulta { get; set; }

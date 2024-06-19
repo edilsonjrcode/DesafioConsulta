@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace DesafioCSharp2.Dto {
-    class PacienteDto {
+    public class PacienteDto {
 
         public string Nome { get; set; }
 

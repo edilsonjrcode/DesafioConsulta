@@ -4,7 +4,7 @@ using DesafioCSharp2.Utils;
 
 namespace DesafioCSharp2.Services
 {
-    class ConsultaServices
+    public class ConsultaServices
     {
 
         private ConsultaRepository _repositoryConsulta = new ConsultaRepository();
@@ -108,5 +108,9 @@ namespace DesafioCSharp2.Services
 
         }
 
+        public List<ConsultaDto> ListarConsultaPorCpf(string cpf)
+        {
+            return _repositoryConsulta.ListarConsultaPorCpf(cpf);
+        }
     }
 }

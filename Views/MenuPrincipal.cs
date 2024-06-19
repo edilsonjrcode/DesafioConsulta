@@ -1,18 +1,9 @@
 using DesafioCSharp2.Controllers;
 
-public class MenuPrincipal()
+public class MenuPrincipal(PacienteController pacienteController, ConsultaController consultaController)
 {
-
-    private readonly PacienteController _pacienteController;
-    private readonly ConsultaController _consultaController;
-    MenuPacientes menuPacientes = new MenuPacientes();
-    MenuConsultas menuConsultas = new MenuConsultas();
-
-    public MenuPrincipal(PacienteController pacienteController, ConsultaController consultaController)
-        {
-            this._pacienteController = pacienteController;
-            this._consultaController = consultaController;
-        }
+    MenuPacientes menuPacientes = new MenuPacientes(pacienteController, consultaController);
+    MenuConsultas menuConsultas = new MenuConsultas(pacienteController, consultaController);
 
     public bool Executar()
     {
@@ -33,7 +24,7 @@ public class MenuPrincipal()
                     menuPacientes.Executar();
                     break;
                 case "2":
-                    // menuConsultas.Executar();
+                    menuConsultas.Executar();
                     break;
                 case "3":
                     return false;
